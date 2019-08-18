@@ -1,0 +1,61 @@
+.home {
+	min-width: 748px;
+    p {
+        color: #fff;
+        margin-bottom: 0;
+    }
+    .grid {
+        cursor: pointer;
+    }
+    .grid:nth-child(1) {
+        background-color: #f0b45f;
+        &:hover {
+            transform: scale(1.1, 1.1);
+            background-color: #f59d23;
+            p {
+                color: #000;
+            }
+        }
+    }
+    .grid:nth-child(2) {
+        background-color: #6bbe6b;
+        &:hover {
+            background-color: #65d865;
+            transform: scale(1.1, 1.1);
+            p {
+                color: #000;
+            }
+        }
+    }
+    .grid:nth-child(3) {
+        background-color: #5db8d3;
+        &:hover {
+            transform: scale(1.1, 1.1);
+            background-color: #47caf1;
+            p {
+                color: #000;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 320px) and (max-width: 768px) {
+    .home {
+        .count {
+            font-size: 18px;
+        }
+        .desc {
+            font-size: 14px;
+        }
+    }
+}
+@media screen and (min-width: 768px) {
+    .home {
+        .count {
+            font-size: 50px;
+        }
+        .desc {
+            font-size: 18px;
+        }
+    }
+}

@@ -1,0 +1,95 @@
+html,
+body,
+#mallmanasys,
+#mallmanasys .router-transition,
+.login {
+    width: 100%;
+    height: 100%;
+}
+@keyframes stretchdelay {
+    0% {
+        transform: scaleY(0);
+        transform-origin: 0% 0%;
+    }
+    100% {
+        transform: scaleY(1);
+    }
+}
+@textcolor: rgba(255, 255, 255, 0.85);
+.login {
+    min-height: 340px;
+    min-width: 340px;
+    background: url('/assets/images/bg.jpg') no-repeat;
+    background-size: 100% 100%;
+    .mallmanasys-info {
+        text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);
+        h1 {
+            color: @textcolor;
+            font-size: 35px;
+            font-weight: 100;
+            padding: 10px 30px;
+            margin-bottom: 0px;
+            animation: stretchdelay 500ms ease-in;
+        }
+        .mallmanasys-alias,
+        .mallmanasys-author {
+            color: @textcolor;
+            padding: 5px 30px;
+            margin-bottom: 0px;
+        }
+        .mallmanasys-alias {
+            animation: stretchdelay 500ms ease-in;
+        }
+        .mallmanasys-author {
+            padding-top: 0px;
+            animation: stretchdelay 500ms ease-in;
+        }
+    }
+    .login-form {
+        max-width: 300px;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        .login-form-button {
+            width: 100%;
+            background-color: #158bc6;
+            &:hover {
+                background-color: #1278ab;
+            }
+        }
+        .login-btn {
+            margin-bottom: 0px;
+        }
+    }
+}
+@media screen and (min-width: 320px) and (max-width: 768px) {
+    .login {
+        .mallmanasys-info {
+            text-align: center;
+            margin-top: 40px;
+        }
+    }
+}
+@media screen and (min-width: 768px) {
+    .login {
+        .mallmanasys-info {
+            position: absolute;
+            bottom: 10%;
+            right: 3%;
+            text-align: right;
+            h1 {
+                background: rgba(0, 0, 0, 0.7);
+            }
+            .mallmanasys-alias,
+            .mallmanasys-author {
+                background: rgba(0, 0, 0, 0.3);
+            }
+        }
+        .login-form {
+            background-color: rgba(0, 0, 0, 0.3);
+            top: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px 20px;
+        }
+    }
+}
