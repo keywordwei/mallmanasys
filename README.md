@@ -1,4 +1,4 @@
-# 商城后台管理系统
+# 校园淘后台管理系统 前端React代码
 ## 使用的技术
 - 前端： `react`框架，包括`react` `react-dom` `react-router-dom` `antd` `axios`，项目中使用了jsonp请求天气解决跨域问题，利用了百度地图api实现ip定位显示地图，echarts-for-react实现图表功能，利用`braft-react`因某些原因暂未用`redux` `react-redux` `react-redux`对数据进行管理。
 - 后台： `node + express + mysql` 搭建后台
