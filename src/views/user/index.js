@@ -333,7 +333,7 @@ class User extends React.Component {
         });
 
         return (
-            <Card title={title} style={{minWidth: '1042px'}}>
+            <Card title={title}>
                 <EditableContext.Provider value={this.props.form}>
                     <Table
                         rowKey="staffId"

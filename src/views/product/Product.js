@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Card, Table, Divider, Tag, Popconfirm, Button } from 'antd';
 import SearchForm from './SearchForm';
+import LinkButton from '../../components/linkbutton';
 import {
     reqFirstLevelCategorys,
     reqProducts,
@@ -10,7 +11,6 @@ import {
     reqSearchAndSortProducts,
     reqDeleteProduct
 } from '../../api';
-import { Link } from 'react-router-dom';
 import { PAGE_SIZE } from '../../utils/constants';
 import pagination from '../../utils/pagination';
 const { CheckableTag } = Tag;
@@ -78,9 +78,10 @@ export default class Product extends Component {
                         <Popconfirm
                             title={`确定${changeTitle}${record.goods_title}商品吗?`}
                             onConfirm={() => this.updateProdudctStatus(record.goods_id, checked)}
+                            className="popconfirm"
                         >
                             <span>
-                                <CheckableTag checked={checked}>{title}</CheckableTag>
+                                <CheckableTag checked={checked} style={{cursor: 'point'}}>{title}</CheckableTag>
                             </span>
                         </Popconfirm>
                     );
@@ -91,39 +92,34 @@ export default class Product extends Component {
                 key: 'action',
                 align: 'center',
                 render: (text, product) => {
-                    //详情界面路由传递参数
-                    let detailPath = {
-                        pathname: '/products/product/productdetail',
-                        state: { product }
-                    };
-                    let upadatePath = {
-                        pathname: '/products/product/editproduct',
-                        state: product
-                    };
                     return (
                         <span>
-                            <Link to={detailPath}>详情</Link>
-                            {/* <LinkButton
-                            onClick={() => {
-                                this.props.history.push('/products/product/productdetail', { product });
-                            }}
-                        >
-                            详情
-                        </LinkButton> */}
+                            <LinkButton onClick={() => this.showDetail(product)}>详情</LinkButton>
                             <Divider type="vertical" />
-                            <Link to={upadatePath}>修改</Link>
+                            <LinkButton onClick={() => this.showUpdate(product)}>修改</LinkButton>
                             <Divider type="vertical" />
                             <Popconfirm
                                 title={`确定删除商品${product.goods_title}吗?`}
                                 onConfirm={() => this.deleteProduct(product.goods_id)}
                             >
-                                <span style={{ color: '#1a73e8' }}>删除</span>
+                                <LinkButton>删除</LinkButton>
                             </Popconfirm>
                         </span>
                     );
                 }
             }
         ];
+    };
+    //显示商品详情界面
+    showDetail = product => {
+        sessionStorage.setItem('product', JSON.stringify(product)) ;
+        this.props.history.push('/products/product/productdetail');
+    };
+
+    //显示修改商品界面
+    showUpdate = product => {
+        sessionStorage.setItem('product', JSON.stringify(product));
+        this.props.history.push('/products/product/editproduct');
     };
     getAllCategory = async () => {
         let result = await reqFirstLevelCategorys();
@@ -245,6 +241,9 @@ export default class Product extends Component {
     }
     componentDidMount() {
         this.getAllCategory();
+        if(!this.isUpdate){
+            
+        }
         let currentPage = sessionStorage.getItem('productCurrentPage');
         if (currentPage) {
             this.getProducts(parseInt(currentPage));
@@ -253,8 +252,9 @@ export default class Product extends Component {
         }
     }
     componentWillUnmount() {
-        const { currentPage } = this.state;
+        const { currentPage, products } = this.state;
         sessionStorage.setItem('productCurrentPage', currentPage);
+        sessionStorage.setItem("",products.length);
     }
     render() {
         const { categorys, total, products, loading, currentPage } = this.state;
@@ -271,6 +271,7 @@ export default class Product extends Component {
                 type="primary"
                 icon="plus"
                 onClick={() => {
+                    this.isUpdate = false;
                     this.props.history.push('/products/product/editproduct');
                 }}
             >
@@ -281,7 +282,7 @@ export default class Product extends Component {
             padding: 0
         };
         return (
-            <div className='product'>
+            <div>
                 <Card title={title} extra={extra} bodyStyle={cardBodyStyle} />
                 <Table
                     bordered

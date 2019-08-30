@@ -1,11 +1,11 @@
 import React from 'react';
 import routes from './router/routes';
 import RouteWithSubRoutes from './router/RouteWithSubRoutes';
-import { BrowserRouter as Router, Switch } from 'react-router-dom';
+import { HashRouter, Switch } from 'react-router-dom';
 // import { TransitionGroup, CSSTransition } from 'react-transition-group';
 export default function App(props) {
     return (
-        <Router>
+        <HashRouter>
              {/* <Route
                 render={({ location }) => (
                     //定义路由间页面切换动画效果
@@ -30,6 +30,6 @@ export default function App(props) {
                     <RouteWithSubRoutes {...route} key={key} />
                 ))}
             </Switch> 
-        </Router>
+        </HashRouter>
     );
 }

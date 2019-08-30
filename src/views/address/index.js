@@ -25,7 +25,7 @@ export default class Adress extends Component {
     }
     render() {
         return (
-            <Card style={{minWidth: '824px'}}>
+            <Card>
                 <div id="address" style={{width: '100%', height:'550px'}}></div>
             </Card>
         );

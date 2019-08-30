@@ -4,7 +4,6 @@ import LinkButton from '../../components/linkbutton';
 import { IMG_URL } from '../../utils/constants';
 import './productdetail.less';
 import { reqUserMsg } from '../../api/index';
-
 const Item = List.Item;
 
 export default class ProductDetail extends Component {
@@ -32,16 +31,19 @@ export default class ProductDetail extends Component {
     };
     componentWillMount() {
         //路由错误处理
-        const routerState = this.props.location.state;
-        if(!routerState){
-            this.props.history.goBack();
+        if(sessionStorage.getItem('product') === null){
+            this.product = {};
+        }else{
+            this.product = JSON.parse(sessionStorage.getItem('product')) ;
         }
     }
     componentDidMount() {
-        const { goods_by_user_id } = this.props.location.state.product;
+        const { goods_by_user_id } = this.product ;
         this.getPublishGoodsUserMsg(goods_by_user_id);
     }
-
+    componentWillUnmount () {
+        sessionStorage.removeItem('product');
+      }
     render() {
         const { user_name, user_status, user_img } = this.state.userMsg;
         const { previewVisible, previewImage } = this.state;
@@ -57,7 +59,7 @@ export default class ProductDetail extends Component {
             goods_contact_qq,
             goods_contact_phone,
             goods_category_name
-        } = this.props.location.state.product;
+        } = this.product ;
         const goodsStatus = goods_status ? '下架' : '在售';
         const userStatus = user_status ? '未认证' : '已认证';
         const productImgs = goods_img ? goods_img.split('#') : [];

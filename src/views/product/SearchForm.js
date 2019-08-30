@@ -6,13 +6,22 @@ const SearForm = props => {
     const { categorys = [], searchProduct, form, getSearchForm, resetFields } = props;
     const { getFieldDecorator } = form;
     getSearchForm(form);
+    
+    const formItemLayout = {
+        labelCol: {
+            xs: { span: 7 }
+        },
+        wrapperCol: {
+            xs: { span: 17 }
+        }
+    };
     return (
-        <Form layout="inline">
-            <Form.Item label="查询品类:">
+        <Form layout="inline" {...formItemLayout}>
+            <Form.Item label="查询品类">
                 {getFieldDecorator('searchCategory', {
                     initialValue: 'allCategory'
                 })(
-                    <Select style={{ width: 128 }}>
+                    <Select style={{ width: 160 }}>
                         <Option value="allCategory">全部</Option>
                         {categorys.map(category => (
                             <Option value={category.id} key={category}>
@@ -22,13 +31,13 @@ const SearForm = props => {
                     </Select>
                 )}
             </Form.Item>
-            <Form.Item label="查询方式:">
+            <Form.Item label="查询方式" >
                 {getFieldDecorator('searchWays', {
                     initialValue: 'goods_title'
                 })(
                     <Select style={{ width: 160 }}>
                         <Option value="goods_title">按商品名称查询</Option>
-                        <Option value="goods_description">按商品详情查询</Option>
+                        <Option value="goods_description">按商品描述查询</Option>
                     </Select>
                 )}
             </Form.Item>

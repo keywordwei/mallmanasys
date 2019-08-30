@@ -231,7 +231,7 @@ export default class Role extends Component {
         );
 
         return (
-            <Card title={title} style={{minWidth: '842px'}}>
+            <Card title={title} >
                 <Table
                     bordered
                     rowKey="roleId"

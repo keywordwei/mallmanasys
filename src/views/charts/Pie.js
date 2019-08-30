@@ -123,7 +123,7 @@ export default class Pie extends Component {
 
   render() {
     return (
-      <div style={{minWidth: '432px'}}>
+      <div>
         <Card title='饼图一'>
           <ReactEcharts option={this.getOption()} style={{height: 300}}/>
         </Card>

@@ -13,10 +13,20 @@ import { reqUpdateAvatar, reqDeleteFile } from '../../api';
 const { Content, Sider } = Layout;
 
 export default class Admin extends Component {
-    state = {
-        collapsed: false,
-        avatarUrl: sessionUtils.getStaff().staff.avatar //头像数据
-    };
+    constructor(props) {
+        super(props);
+        const { staff } = sessionUtils.getStaff();
+        let avatarUrl;
+        if (!staff) {
+            avatarUrl = '';
+        } else {
+            avatarUrl = staff.avatar;
+        }
+        this.state = {
+            collapsed: false,
+            avatarUrl //头像数据
+        };
+    }
 
     onCollapse = collapsed => {
         this.setState({ collapsed });
@@ -37,17 +47,19 @@ export default class Admin extends Component {
     uploadAvatar = async info => {
         if (info.file.status === 'done') {
             let res = info.file.response;
-            this.setState({avatarUrl: res.data.fileName});
-            if(res.status === 0){
-                const {staffId,avatar } = sessionUtils.getStaff().staff;
+            this.setState({ avatarUrl: res.data.fileName });
+            if (res.status === 0) {
+                const { staffId, avatar } = sessionUtils.getStaff().staff;
                 let avatarName = res.data.fileName;
+                const staffMsg = sessionUtils.getStaff();
+                staffMsg.staff.avatar = avatarName;
                 await reqDeleteFile({ fileName: avatar });
-                let result = await reqUpdateAvatar({staffId,avatar:avatarName });
-                if(result.status === 0){
-                    sessionUtils.getStaff().staff.avatar = avatarName;
-                    storageUtils.getStaff().staff.avatar = avatarName;
+                let result = await reqUpdateAvatar({ staffId, avatar: avatarName });
+                if (result.status === 0) {
+                    sessionUtils.saveStaff(staffMsg);
+                    storageUtils.saveStaff(staffMsg);
                     message.success('修改头像成功!');
-                }else {
+                } else {
                     message.success('修改头像失败!');
                 }
             }
@@ -73,13 +85,12 @@ export default class Admin extends Component {
         }
         const { avatarUrl } = this.state;
         return (
-            <Layout className="mall-layout">
+            <Layout className="mall-layout ">
                 <Sider
-                    breakpoint="lg"
+                    breakpoint="md"
                     collapsible
                     collapsed={this.state.collapsed}
                     onCollapse={this.onCollapse}
-                    onBreakpoint={broken => {}}
                     className="sider"
                 >
                     <div className="logo">
@@ -96,9 +107,9 @@ export default class Admin extends Component {
                     </div>
                     <Nav />
                 </Sider>
-                <Layout className="content-layout">
+                <Layout className="content-layout ">
                     <Header />
-                    <Content className="content-body">
+                    <Content className="content-body clearmargin">
                         <Switch>
                             <Redirect exact from="/" to="/home" />
                             {roleRoutes.map((route, key) => (

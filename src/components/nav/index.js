@@ -96,7 +96,7 @@ class siderNav extends Component {
         }
         const openKey = this.openKey;
         return (
-            <div>
+            <div >
                 <Menu theme="dark" mode="inline" className="nav" defaultOpenKeys={[openKey]} selectedKeys={[pathname]}>
                     {this.menuNodes}
                 </Menu>

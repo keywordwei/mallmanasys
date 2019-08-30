@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Switch, Redirect } from 'react-router-dom';
+import { Switch, Redirect, Route } from 'react-router-dom';
 import RouteWithSubRoutes from '../../router/RouteWithSubRoutes';
+import NotFound from '../not-found/not-found';
 export default class Porduct extends Component {
     render() {
         const { routes } = this.props;
@@ -11,6 +12,7 @@ export default class Porduct extends Component {
                 {routes.map((route, key) => (
                     <RouteWithSubRoutes {...route} key={key} />
                 ))}
+                <Route component={NotFound} />
             </Switch>
         );
     }

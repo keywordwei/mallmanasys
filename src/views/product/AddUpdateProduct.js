@@ -156,7 +156,7 @@ class AddUpdateProduct extends Component {
         });
     };
     componentWillMount() {
-        const product = this.props.location.state;
+        const product = JSON.parse(sessionStorage.getItem('product'));
         this.isUpdate = !!product;
         this.product = product || {};
     }
@@ -164,6 +164,9 @@ class AddUpdateProduct extends Component {
     //获取一级/二级分类选项
     componentDidMount() {
         this.getCategorys();
+    }
+    componentWillUnmount(){
+        sessionStorage.removeItem('product');
     }
     render() {
         const { categoryOptions, secondaryId } = this.state;
@@ -204,7 +207,7 @@ class AddUpdateProduct extends Component {
         };
         return (
             <div>
-                <Card title={title} className="add-product">
+                <Card title={title}>
                     <Form {...formItemLayout}>
                         <Item label="商品名称">
                             {getFieldDecorator('goods_title', {

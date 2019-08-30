@@ -50,7 +50,7 @@ export default class Line extends Component {
   render() {
     const {sales, stores} = this.state
     return (
-      <div style={{minWidth: '497px'}}>
+      <div>
         <Card>
           <Button type='primary' onClick={this.update}>更新</Button>
         </Card>
